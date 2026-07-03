@@ -1,0 +1,40 @@
+<!-- How to use the modular scripts -->
+<!-- Load all scripts in this order (dependencies first) -->
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Smartschool - Modular Version</title>
+</head>
+<body>
+    <!-- Load scripts in dependency order -->
+    <!-- 1. Utilities (no dependencies) -->
+    <script src="utils.js"></script>
+    
+    <!-- 2. Configuration (no dependencies) -->
+    <script src="config.js"></script>
+    
+    <!-- 3. Styles (depends on Config for accent colors) -->
+    <script src="styles.js"></script>
+    
+    <!-- 4. Popup system (depends on Utils, Config) -->
+    <script src="popup.js"></script>
+    
+    <!-- 5. Tools (depends on Utils, Config, Popup, Styles) -->
+    <script src="tools.js"></script>
+    
+    <!-- 6. Games (depends on Utils, Config) -->
+    <script src="games.js"></script>
+    
+    <!-- 7. Dashboard (depends on Utils, Config, Popup, Games) -->
+    <script src="dashboard.js"></script>
+    
+    <!-- 8. Layout (depends on Utils, Config, Styles, Popup, Tools, Games, Dashboard) -->
+    <script src="layout.js"></script>
+    
+    <!-- 9. Initialize (depends on all other modules) -->
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "smartify voor smartschool",
+  "version": "4.1",
+  "description": "Een compleet vernieuwde Smartschool ervaring met games, tools en personalisatie",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "modern-smartschool@smartschool.be",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "host_permissions": ["*://*.smartschool.be/*", "https://generativelanguage.googleapis.com/*"],
+  "permissions": ["storage", "notifications", "clipboardRead", "clipboardWrite", "identity"],
+  "content_scripts": [
+    {
+      "matches": ["*://*.smartschool.be/*"],
+      "js": [
+        "utils.js",
+        "config.js",
+        "styles.js",
+        "popup.js",
+        "tools.js",
+        "games.js",
+        "dashboard.js",
+        "layout.js",
+        "index.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["*.png", "*.jpg", "*.svg", "*.gif"],
+      "matches": ["*://*.smartschool.be/*"]
+    }
+  ]
+}
