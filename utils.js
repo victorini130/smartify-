@@ -28,6 +28,8 @@ const Utils = (() => {
   const sSC = c => sS('modern_sidebar_color', c);
   const gSdC = () => gS('modern_sidebar_collapsed') === 'true';
   const sSdC = c => sS('modern_sidebar_collapsed', String(c));
+  const gCM = () => gS('modern_custom_mode') !== 'false';
+  const sCM = enabled => sS('modern_custom_mode', String(enabled));
 
   // Streak
   const gSt = () => gI('modern_streak');
@@ -47,7 +49,7 @@ const Utils = (() => {
 
   return {
     $, $$, gS, sS, gI, sI, gJ, sJ, gHS, sHS,
-    gSN, sSN, gSP, sSP, rSP, gSB, sSB, gSC, sSC, gSdC, sSdC,
+    gSN, sSN, gSP, sSP, rSP, gSB, sSB, gSC, sSC, gSdC, sSdC, gCM, sCM,
     gSt, uS, eH
   };
 })();

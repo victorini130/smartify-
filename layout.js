@@ -2,7 +2,56 @@
 const Layout = (() => {
   let originalMainContainer = null;
 
+  const isCustomModeEnabled = () => Utils.gCM();
+
+  function removeModeReenableButton() {
+    document.getElementById('modern-mode-reenable')?.remove();
+  }
+
+  function showModeReenableButton() {
+    if (document.getElementById('modern-mode-reenable')) return;
+    const btn = document.createElement('button');
+    btn.id = 'modern-mode-reenable';
+    btn.className = 'modern-mode-reenable-btn';
+    btn.type = 'button';
+    btn.innerHTML = `${Config.IC.home} Terug naar aangepast`;
+    btn.addEventListener('click', () => {
+      Utils.sCM(true);
+      removeModeReenableButton();
+      buildLayout();
+    });
+    document.body.appendChild(btn);
+  }
+
+  function restoreOriginalLayout() {
+    const customLayout = document.getElementById('modern-custom-layout');
+    const originalShell = document.getElementById('original-smartschool');
+    if (customLayout) customLayout.remove();
+
+    if (originalMainContainer && originalMainContainer.parentElement && originalMainContainer.parentElement.id !== 'original-smartschool') {
+      originalMainContainer.remove();
+      if (originalShell) originalShell.appendChild(originalMainContainer);
+    }
+
+    if (originalShell) {
+      while (originalShell.firstChild) document.body.appendChild(originalShell.firstChild);
+      originalShell.remove();
+    }
+
+    const nav = document.querySelector('#left,#menu,#navigatie,td.left,div.left,nav,#sidebar,#hoofdmenu');
+    if (nav) nav.style.display = '';
+    if (originalMainContainer) originalMainContainer.style.display = '';
+    showModeReenableButton();
+  }
+
   function buildLayout() {
+    if (!isCustomModeEnabled()) {
+      restoreOriginalLayout();
+      return;
+    }
+
+    removeModeReenableButton();
+    if (document.getElementById('modern-custom-layout')) return;
     const nav = document.querySelector('#left,#menu,#navigatie,td.left,div.left,nav,#sidebar,#hoofdmenu');
     if (!nav) return;
     const mc = document.querySelector('#content,#main,#midden,td.content,div.content,#maincontent,div.main')
@@ -26,6 +75,10 @@ const Layout = (() => {
         <div class="logo">Modern Smartschool</div>
         <div class="header-center">
           <div class="datetime" id="header-datetime"></div>
+          <button class="mode-toggle" id="mode-toggle" type="button" aria-pressed="true">
+            <span class="mode-toggle-label">Custom</span>
+            <span class="mode-toggle-switch"><span class="mode-toggle-knob"></span></span>
+          </button>
         </div>
         <button class="user-btn" id="user-btn" title="Profiel & Instellingen"></button>
       </header>
@@ -38,6 +91,23 @@ const Layout = (() => {
     const cz = document.getElementById('custom-content');
     cz.appendChild(mc);
     nav.style.display = 'none';
+
+    const modeToggle = document.getElementById('mode-toggle');
+    const updateModeToggle = () => {
+      const enabled = isCustomModeEnabled();
+      if (!modeToggle) return;
+      modeToggle.classList.toggle('active', enabled);
+      modeToggle.setAttribute('aria-pressed', String(enabled));
+      const label = modeToggle.querySelector('.mode-toggle-label');
+      if (label) label.textContent = enabled ? 'Custom' : 'Smartschool';
+    };
+    updateModeToggle();
+    modeToggle?.addEventListener('click', () => {
+      const enabled = !isCustomModeEnabled();
+      Utils.sCM(enabled);
+      updateModeToggle();
+      if (enabled) buildLayout(); else restoreOriginalLayout();
+    });
 
     const sb = document.getElementById('custom-sidebar');
     const accent = Utils.gS('modern_accent_color') || '#3b82f6';

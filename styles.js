@@ -23,6 +23,15 @@ const Styles = (() => {
       .search input::placeholder{color:#64748b;}
       .search input:focus{background:rgba(255,255,255,.13);width:220px;}
       .datetime{font-size:.7rem;color:#94a3b8;background:rgba(255,255,255,.07);padding:5px 12px;border-radius:20px;font-weight:500;white-space:nowrap;}
+      .mode-toggle{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);color:#e2e8f0;cursor:pointer;font-size:.75rem;font-weight:600;transition:background .2s,border-color .2s;}
+      .mode-toggle:hover{background:rgba(255,255,255,.12);}
+      .mode-toggle.active{background:rgba(96,165,250,.2);border-color:rgba(96,165,250,.35);}
+      .mode-toggle-switch{position:relative;width:36px;height:20px;border-radius:999px;background:rgba(255,255,255,.2);transition:background .2s;}
+      .mode-toggle.active .mode-toggle-switch{background:linear-gradient(135deg,#60a5fa,#a78bfa);}
+      .mode-toggle-knob{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.25);}
+      .mode-toggle.active .mode-toggle-knob{transform:translateX(16px);}      
+      .modern-mode-reenable-btn{position:fixed;top:12px;right:12px;z-index:20000;display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border:none;border-radius:999px;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;font-weight:700;font-size:.72rem;cursor:pointer;box-shadow:0 6px 16px rgba(59,130,246,.24);line-height:1;white-space:nowrap;max-width:calc(100vw - 24px);overflow:hidden;text-overflow:ellipsis;}
+      .modern-mode-reenable-btn:hover{transform:translateY(-1px);opacity:.95;}
       .user-btn{display:flex;align-items:center;gap:8px;cursor:pointer;padding:5px 12px 5px 5px;border-radius:24px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);transition:background .2s,box-shadow .2s;}
       .user-btn:hover{background:rgba(255,255,255,.14);box-shadow:0 0 0 2px rgba(96,165,250,.3);}
       .pfp-img{width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.25);}
